@@ -1,19 +1,15 @@
 CC=gcc
 CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
-OBJ=obj
+BIN=bin
 RM=rm -f
-MKDIR=mkdir -p
 
-.PHONY: create_build_dirs clean
-.IGNORE: create_build_dirs
+.PHONY: clean
 
-all: create_build_dirs $(OBJ)/TESTickle.o
+all: $(BIN)/test
 
-$(OBJ)/TESTickle.o: TESTickle.c TESTickle.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-create_build_dirs:
-	$(MKDIR) $(OBJ)
+$(BIN)/test: test.c TESTickle.h
+	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	$(RM) $(OBJ)/*.o
+	$(RM) -r $(BIN)/*.dSYM
+	$(RM) $(BIN)/*
