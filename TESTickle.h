@@ -37,7 +37,7 @@
 #define TEST(test_name) \
     struct test_result test_name() \
     { \
-        struct test_result result;
+        struct test_result result = {.test_passed = false, .data_specified = false};
 
 #define END_TEST \
         result.test_passed = true; \
@@ -46,23 +46,18 @@
 
 #define ASSERT_TRUE(test, message) \
     if (!(test)) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
 #define ASSERT_FALSE(test, message) \
     if (test) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
 #define ASSERT_EQUAL(actual, expected, type, message) \
     if (actual != expected) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
         result.data_specified = true; \
         snprintf(result.got, MESSAGE_LENGTH, type, actual); \
@@ -72,15 +67,12 @@
 
 #define ASSERT_NOT_EQUAL(actual, expected, message) \
     if (actual == expected) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
 #define ASSERT_STRING_EQUAL(actual, expected, message) \
     if (strncmp(actual, expected, MESSAGE_LENGTH) != 0) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
         result.data_specified = true; \
         snprintf(result.got, MESSAGE_LENGTH, actual); \
@@ -90,33 +82,25 @@
 
 #define ASSERT_STRING_EMPTY(actual, message) \
     if (strncmp(actual, "", MESSAGE_LENGTH) != 0) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
 #define ASSERT_STRING_NOT_EMPTY(actual, message) \
     if (strncmp(actual, "", MESSAGE_LENGTH) == 0) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
 #define ASSERT_NULL(expr, message) \
     if ((expr) != NULL) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
 #define ASSERT_NOT_NULL(expr, message) \
     if ((expr) == NULL) { \
-        result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
-        result.data_specified = false; \
         return result; \
     }
 
