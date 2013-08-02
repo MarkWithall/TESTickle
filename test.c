@@ -2,8 +2,6 @@
 
 #include <stdlib.h>
 
-int test_number = 1;
-
 void setup() { }
 void teardown() { }
 
@@ -18,14 +16,3 @@ END_TEST
 TEST(equal_failure_test)
     ASSERT_EQUAL(1, 2, "%d", "One should equal Two");
 END_TEST
-
-int main(void)
-{
-    TEST_FIXTURE(3);
-
-    RUN_TEST(passing_test);
-    RUN_TEST(failing_test);
-    RUN_TEST(equal_failure_test);
-
-    exit(EXIT_SUCCESS);
-}
