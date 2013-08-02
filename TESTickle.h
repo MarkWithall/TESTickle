@@ -52,6 +52,14 @@
         return result; \
     }
 
+#define ASSERT_FALSE(test, message) \
+    if (test) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = false; \
+        return result; \
+    }
+
 #define ASSERT_EQUAL(actual, expected, type, message) \
     if (actual != expected) { \
         result.test_passed = false; \
@@ -62,6 +70,14 @@
         return result; \
     }
 
+#define ASSERT_NOT_EQUAL(actual, expected, message) \
+    if (actual == expected) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = false; \
+        return result; \
+    }
+
 #define ASSERT_STRING_EQUAL(actual, expected, message) \
     if (strncmp(actual, expected, MESSAGE_LENGTH) != 0) { \
         result.test_passed = false; \
@@ -69,6 +85,38 @@
         result.data_specified = true; \
         snprintf(result.got, MESSAGE_LENGTH, actual); \
         snprintf(result.expect, MESSAGE_LENGTH, expected); \
+        return result; \
+    }
+
+#define ASSERT_STRING_EMPTY(actual, message) \
+    if (strncmp(actual, "", MESSAGE_LENGTH) != 0) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = false; \
+        return result; \
+    }
+
+#define ASSERT_STRING_NOT_EMPTY(actual, message) \
+    if (strncmp(actual, "", MESSAGE_LENGTH) == 0) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = false; \
+        return result; \
+    }
+
+#define ASSERT_NULL(expr, message) \
+    if ((expr) != NULL) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = false; \
+        return result; \
+    }
+
+#define ASSERT_NOT_NULL(expr, message) \
+    if ((expr) == NULL) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = false; \
         return result; \
     }
 
