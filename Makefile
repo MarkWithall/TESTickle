@@ -6,7 +6,7 @@ RM=rm -f
 MKDIR=mkdir -p
 PERL=perl
 
-.PHONY: create_build_dirs clean
+.PHONY: create_build_dirs test clean
 .IGNORE: create_build_dirs
 
 all: create_build_dirs $(BIN)/test
@@ -22,6 +22,9 @@ test_runner.c: test.c
 
 $(BIN)/test: test_runner.c $(OBJ)/test.o
 	$(CC) $(CFLAGS) -o $@ $^
+
+test:
+	prove -f -e "" bin/*
 
 clean:
 	$(RM) *_runner.c

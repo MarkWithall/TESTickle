@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #define TEST_FIXTURE(number_of_tests) \
     do { \
@@ -51,13 +52,23 @@
         return result; \
     }
 
-#define ASSERT_EQUAL(a, b, type, message) \
-    if (a != b) { \
+#define ASSERT_EQUAL(actual, expected, type, message) \
+    if (actual != expected) { \
         result.test_passed = false; \
         snprintf(result.failure_message, MESSAGE_LENGTH, message); \
         result.data_specified = true; \
-        snprintf(result.got, MESSAGE_LENGTH, type, a); \
-        snprintf(result.expect, MESSAGE_LENGTH, type, b); \
+        snprintf(result.got, MESSAGE_LENGTH, type, actual); \
+        snprintf(result.expect, MESSAGE_LENGTH, type, expected); \
+        return result; \
+    }
+
+#define ASSERT_STRING_EQUAL(actual, expected, message) \
+    if (strncmp(actual, expected, MESSAGE_LENGTH) != 0) { \
+        result.test_passed = false; \
+        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        result.data_specified = true; \
+        snprintf(result.got, MESSAGE_LENGTH, actual); \
+        snprintf(result.expect, MESSAGE_LENGTH, expected); \
         return result; \
     }
 

@@ -16,3 +16,7 @@ END_TEST
 TEST(equal_failure_test)
     ASSERT_EQUAL(1, 2, "%d", "One should equal Two");
 END_TEST
+
+TEST(string_equal_failure)
+    ASSERT_STRING_EQUAL("Hello", "World", "Hello should equal World");
+END_TEST
