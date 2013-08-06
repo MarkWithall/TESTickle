@@ -20,7 +20,24 @@ while (my $line = <FILE>) {
 close (FILE);
 
 my $template = Template->new();
-$template->process('test_template.c', {number_of_tests => scalar(@tests),
+$template->process(\*DATA, {number_of_tests => scalar(@tests),
                                        tests => \@tests})
     || croak $template->error();
 
+__END__
+#include <stdlib.h>
+
+#include "TESTickle.h"
+
+int test_number = 1;
+
+[% FOREACH test IN tests %]struct test_result [% test.name %]();
+[% END %]
+int main(void)
+{
+    TEST_FIXTURE([% number_of_tests %]);
+
+[% FOREACH test IN tests %]    RUN_TEST([% test.name %]);
+[% END %]
+    exit(EXIT_SUCCESS);
+}
