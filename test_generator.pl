@@ -11,18 +11,15 @@ my $fixture = $ARGV[0];
 $fixture =~ s/\.c$//;
 
 my @tests = ();
-my $test_number = 1;
 
 open (FILE, $ARGV[0]) || croak $!;
 while (my $line = <FILE>) {
-    push @tests, {number => $test_number ++, name => $1} if ($line =~ /^TEST\(([^)]+)\)/);
+    push @tests, {name => $1} if ($line =~ /^TEST\(([^)]+)\)/);
 }
 close (FILE);
 
 my $template = Template->new();
-$template->process(\*DATA, {number_of_tests => scalar(@tests),
-                                       tests => \@tests})
-    || croak $template->error();
+$template->process(\*DATA, {number_of_tests => scalar(@tests), tests => \@tests}) || croak $template->error();
 
 __END__
 #include <stdlib.h>
