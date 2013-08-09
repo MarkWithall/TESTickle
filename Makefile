@@ -17,7 +17,7 @@ create_build_dirs:
 $(OBJ)/test.o: test.c TESTickle.h
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-test_runner.c: test.c
+%_runner.c: %.c
 	$(PERL) test_generator.pl $< > $@
 
 $(BIN)/test: test_runner.c $(OBJ)/test.o
