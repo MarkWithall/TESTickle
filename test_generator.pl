@@ -8,19 +8,19 @@ use Template;
 
 use version; our $VERSION = qv(0.1);
 
-if (@ARGV != 1) { croak "Usage: $PROGRAM_NAME <test.c>" }
+if ( @ARGV != 1 ) { croak "Usage: $PROGRAM_NAME <test.c>" }
 
 my @tests = ();
 
-open (my $file, '<', $ARGV[0]) || croak $ERRNO;
-while (my $line = <$file>) {
-    if ($line =~ /^TEST[(]([^)]+)[)]/xms) { push @tests, {name => $1} }
+open( my $file, '<', $ARGV[0] ) || croak $ERRNO;
+while ( my $line = <$file> ) {
+    if ( $line =~ /^TEST[(]([^)]+)[)]/xms ) { push @tests, { name => $1 } }
 }
 close $file || croak $ERRNO;
 
 my $template = Template->new();
-my $template_vars = {number_of_tests => scalar(@tests), tests => \@tests};
-$template->process(\*DATA, $template_vars) || croak $template->error();
+my $template_vars = { number_of_tests => scalar(@tests), tests => \@tests };
+$template->process( \*DATA, $template_vars ) || croak $template->error();
 
 __END__
 #include <stdlib.h>
