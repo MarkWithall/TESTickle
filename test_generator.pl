@@ -14,7 +14,7 @@ my @tests = ();
 
 open( my $file, '<', $ARGV[0] ) || croak $ERRNO;
 while ( my $line = <$file> ) {
-    if ( $line =~ /^TEST[(]([^)]+)[)]/xms ) { push @tests, { name => $1 } }
+    if ( $line =~ /^TEST [(] ([^)]+) [)]/xms ) { push @tests, { name => $1 } }
 }
 close $file || croak $ERRNO;
 
