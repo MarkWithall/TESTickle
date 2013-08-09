@@ -19,7 +19,8 @@ while (my $line = <FILE>) {
 close (FILE);
 
 my $template = Template->new();
-$template->process(\*DATA, {number_of_tests => scalar(@tests), tests => \@tests}) || croak $template->error();
+my $template_vars = {number_of_tests => scalar(@tests), tests => \@tests};
+$template->process(\*DATA, $template_vars) || croak $template->error();
 
 __END__
 #include <stdlib.h>
