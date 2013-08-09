@@ -11,16 +11,16 @@
         printf("1..%d\n", number_of_tests); \
     } while(0);
 
-#define RUN_TEST(test_name) \
+#define RUN_TEST(test_name, test_number) \
     do { \
         struct test_result result; \
         setup(); \
         result = test_name(); \
         if (result.test_passed) { \
-            printf("ok %d - %s\n", test_number++, #test_name); \
+            printf("ok %d - %s\n", test_number, #test_name); \
         } \
         else { \
-            printf("not ok %d - %s\n", test_number++, #test_name); \
+            printf("not ok %d - %s\n", test_number, #test_name); \
             printf("  ---\n"); \
             printf("  message: %s\n", result.failure_message); \
             printf("  severity: fail\n"); \
@@ -113,8 +113,6 @@ struct test_result {
     char got[MESSAGE_LENGTH];
     char expect[MESSAGE_LENGTH];
 };
-
-extern int test_number;
 
 void setup();
 void teardown();

@@ -29,15 +29,15 @@ __END__
 
 #include "TESTickle.h"
 
-int test_number = 1;
-
 [% FOREACH test IN tests %]struct test_result [% test.name %]();
 [% END %]
 int main(void)
 {
+    int test_number = 1;
+
     TEST_FIXTURE([% number_of_tests %]);
 
-[% FOREACH test IN tests %]    RUN_TEST([% test.name %]);
+[% FOREACH test IN tests %]    RUN_TEST([% test.name %], test_number++);
 [% END %]
     exit(EXIT_SUCCESS);
 }
