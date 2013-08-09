@@ -2,18 +2,21 @@
 
 use strict;
 use warnings;
+use English qw( -no_match_vars );
 use Carp;
 use Template;
 
-croak "Usage: $0 <test.c>" unless (@ARGV == 1);
+use version; our $VERSION = qv(0.1);
+
+if (@ARGV != 1) { croak "Usage: $PROGRAM_NAME <test.c>" }
 
 my @tests = ();
 
-open (FILE, $ARGV[0]) || croak $!;
-while (my $line = <FILE>) {
-    push @tests, {name => $1} if ($line =~ /^TEST\(([^)]+)\)/);
+open (my $file, '<', $ARGV[0]) || croak $ERRNO;
+while (my $line = <$file>) {
+    if ($line =~ /^TEST[(]([^)]+)[)]/xms) { push @tests, {name => $1} }
 }
-close (FILE);
+close $file || croak $ERRNO;
 
 my $template = Template->new();
 my $template_vars = {number_of_tests => scalar(@tests), tests => \@tests};
