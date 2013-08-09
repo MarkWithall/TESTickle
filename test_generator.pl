@@ -7,9 +7,6 @@ use Template;
 
 croak "Usage: $0 <test.c>" unless (@ARGV == 1);
 
-my $fixture = $ARGV[0];
-$fixture =~ s/\.c$//;
-
 my @tests = ();
 
 open (FILE, $ARGV[0]) || croak $!;
