@@ -2,32 +2,46 @@ CC=gcc
 CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
 BIN=bin
 OBJ=obj
-RM=rm -f
-MKDIR=mkdir -p
 PERL=perl
+
+ifeq ($(OS),Windows_NT)
+	RM := cmd /C del
+	MKDIR := cmd /C md
+	OBJECTS := $(OBJ)\*.o
+	BINARIES := $(BIN)\*.exe
+	REMOVEDSYM := 
+	DOTEXE := .exe
+else
+	RM := rm -f
+	MKDIR := mkdir -p
+	OBJECTS := $(OBJ)/*.o
+	BINARIES := $(BIN)/*
+	REMOVEDSYM := $(RM) -r $(BIN)/*.dSYM
+	DOTEXE := 
+endif
 
 .PHONY: create_build_dirs test clean
 .IGNORE: create_build_dirs
 
-all: create_build_dirs $(BIN)/test
+all: create_build_dirs $(BIN)/test$(DOTEXE)
 
 create_build_dirs:
 	$(MKDIR) $(OBJ) $(BIN)
 
 $(OBJ)/test.o: test.c TESTickle.h
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c test.c
 
 %_runner.c: %.c
 	$(PERL) test_generator.pl $< > $@
 
-$(BIN)/test: test_runner.c $(OBJ)/test.o
+$(BIN)/test$(DOTEXE): test_runner.c $(OBJ)/test.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 test:
-	prove -f -e "" bin/*
+	prove -f -e "" bin/*$(DOTEXE)
 
 clean:
 	$(RM) *_runner.c
-	$(RM) $(OBJ)/*.o
-	$(RM) -r $(BIN)/*.dSYM
-	$(RM) $(BIN)/*
+	$(RM) $(OBJECTS)
+	$(REMOVEDSYM)
+	$(RM) $(BINARIES)
