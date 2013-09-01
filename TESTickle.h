@@ -46,19 +46,19 @@
 
 #define ASSERT_TRUE(test, message) \
     if (!(test)) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         return result; \
     }
 
 #define ASSERT_FALSE(test, message) \
     if (test) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         return result; \
     }
 
 #define ASSERT_EQUAL(actual, expected, type, message) \
     if (actual != expected) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         result.data_specified = true; \
         snprintf(result.got, MESSAGE_LENGTH, type, actual); \
         snprintf(result.expect, MESSAGE_LENGTH, type, expected); \
@@ -67,40 +67,42 @@
 
 #define ASSERT_NOT_EQUAL(actual, expected, message) \
     if (actual == expected) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         return result; \
     }
 
 #define ASSERT_STRING_EQUAL(actual, expected, message) \
     if (strncmp(actual, expected, MESSAGE_LENGTH) != 0) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         result.data_specified = true; \
-        snprintf(result.got, MESSAGE_LENGTH, actual); \
-        snprintf(result.expect, MESSAGE_LENGTH, expected); \
+        snprintf(result.got, MESSAGE_LENGTH, "%s", actual); \
+        snprintf(result.expect, MESSAGE_LENGTH, "%s", expected); \
         return result; \
     }
 
 #define ASSERT_STRING_EMPTY(actual, message) \
     if (strncmp(actual, "", MESSAGE_LENGTH) != 0) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        result.data_specified = true; \
+        snprintf(result.got, MESSAGE_LENGTH, "%s", actual); \
         return result; \
     }
 
 #define ASSERT_STRING_NOT_EMPTY(actual, message) \
     if (strncmp(actual, "", MESSAGE_LENGTH) == 0) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         return result; \
     }
 
 #define ASSERT_NULL(expr, message) \
     if ((expr) != NULL) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         return result; \
     }
 
 #define ASSERT_NOT_NULL(expr, message) \
     if ((expr) == NULL) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, message); \
+        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
         return result; \
     }
 
