@@ -1,6 +1,4 @@
 language: c
 compiler: gcc
-before_install: export PERL_MM_USE_DEFAULT=1
-sudo: required
-install: cpan -f -i Template
+install: cpanm --quiet --installdeps --notest .
 script: make && make test
