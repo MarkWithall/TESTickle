@@ -2,3 +2,4 @@ nbproject/
 bin/
 obj/
 *_runner.c
+*.swp
