@@ -1,5 +1,5 @@
 language: c
 compiler: gcc
 before_install: export PERL_MM_USE_DEFAULT=1
-install: cpan -i Template
+install: cpan -f -i Template
 script: make && make test
