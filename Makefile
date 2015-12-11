@@ -20,13 +20,28 @@ else
 	DOTEXE := 
 endif
 
-.PHONY: all create_build_dirs test clean
+.PHONY: all banner create_build_dirs test clean
 .IGNORE: create_build_dirs
 
-BIN_PATTERN=$(BIN)/%$(DOTEXE)
-BIN_NAMES=$(basename $(basename $(wildcard *.test.c)))
+SRC_FILES=$(wildcard *.test.c)
 
-all: create_build_dirs $(patsubst %,$(BIN_PATTERN),$(BIN_NAMES))
+OBJ_NAMES=$(patsubst %.test.c,%.o,$(SRC_FILES))
+OBJ_PATTERN=$(OBJ)/%
+OBJ_PATHS=$(patsubst %,$(OBJ_PATTERN),$(OBJ_NAMES))
+
+BIN_NAMES=$(patsubst %.test.c,%,$(SRC_FILES))
+BIN_PATTERN=$(BIN)/%$(DOTEXE)
+BIN_PATHS=$(patsubst %,$(BIN_PATTERN),$(BIN_NAMES))
+
+all: banner create_build_dirs $(BIN_PATHS)
+
+banner:
+	@echo src files: $(SRC_FILES)
+	@echo bin_names: $(BIN_NAMES)
+	@echo bin_paths: $(BIN_PATHS)
+	@echo obj_names: $(OBJ_NAMES)
+	@echo obj_paths: $(OBJ_PATHS)
+	@echo
 
 create_build_dirs:
 	$(MKDIR) $(OBJ) $(BIN)
