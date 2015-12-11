@@ -16,7 +16,7 @@ else
 	MKDIR := mkdir -p
 	OBJECTS := $(OBJ)/*.o
 	BINARIES := $(BIN)/*
-	REMOVEDSYM := $(RM) -r $(BIN)/*.dSYM
+	REMOVEDSYM := $(RM) -rf $(BIN)/*.dSYM
 	DOTEXE := 
 endif
 
