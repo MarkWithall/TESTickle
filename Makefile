@@ -20,7 +20,7 @@ else
 	DOTEXE := 
 endif
 
-.PHONY: create_build_dirs test clean
+.PHONY: all create_build_dirs test clean
 .IGNORE: create_build_dirs
 
 all: create_build_dirs $(BIN)/test$(DOTEXE)
