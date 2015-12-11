@@ -10,7 +10,7 @@ Installation
 
 ### Windows
 
-Download and install [Strawberry Perl](http://strawberryperl.com); this comes with `bcc` and `gmake` too. You will need to install the required CPAN libraries with: `cpan Template`
+Download and install [Strawberry Perl](http://strawberryperl.com); this comes with `gcc` and `gmake` too. You will need to install the required CPAN libraries with: `cpan Template`
 
 ### OS X
 
