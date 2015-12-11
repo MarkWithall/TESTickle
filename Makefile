@@ -23,18 +23,21 @@ endif
 .PHONY: all create_build_dirs test clean
 .IGNORE: create_build_dirs
 
-all: create_build_dirs $(BIN)/test$(DOTEXE)
+BIN_PATTERN=$(BIN)/%$(DOTEXE)
+BIN_NAMES=$(basename $(basename $(wildcard *.test.c)))
+
+all: create_build_dirs $(patsubst %,$(BIN_PATTERN),$(BIN_NAMES))
 
 create_build_dirs:
 	$(MKDIR) $(OBJ) $(BIN)
 
-$(OBJ)/test.o: test.c TESTickle.h
-	$(CC) $(CFLAGS) -o $@ -c test.c
+$(OBJ)/%.o: %.test.c TESTickle.h
+	$(CC) $(CFLAGS) -o $@ -c $<
 
-%_runner.c: %.c
+%_runner.c: %.test.c
 	$(PERL) test_generator.pl $< > $@
 
-$(BIN)/test$(DOTEXE): test_runner.c $(OBJ)/test.o
+$(BIN)/%$(DOTEXE): %_runner.c $(OBJ)/%.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 test:
