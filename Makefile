@@ -4,12 +4,15 @@ BIN=bin
 OBJ=obj
 PERL=perl
 
+# Note that the OBJECTS and BINARIES defined here are not dependent on the
+# *.test.c files in the main directory, hence all objects and binaries will
+# be cleaned.
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
 	MKDIR := cmd /C md
-	OBJECTS := $(OBJ)\*.o
-	BINARIES := $(BIN)\*.exe
-	REMOVEDSYM := 
+	OBJECTS := $(OBJ)\\*.o
+	BINARIES := $(BIN)\\*.exe
+	REMOVEDSYM :=
 	DOTEXE := .exe
 else
 	RM := rm -f
@@ -17,12 +20,11 @@ else
 	OBJECTS := $(OBJ)/*.o
 	BINARIES := $(BIN)/*
 	REMOVEDSYM := $(RM) -rf $(BIN)/*.dSYM
-	DOTEXE := 
+	DOTEXE :=
 endif
 
-.PHONY: all banner create_build_dirs test clean
-.IGNORE: create_build_dirs
-
+# Dynamically create a list of objects and binaries that must be compiled,
+# baesd on the files ending with `.test.c` in this directory
 SRC_FILES=$(wildcard *.test.c)
 
 OBJ_NAMES=$(patsubst %.test.c,%.o,$(SRC_FILES))
@@ -33,15 +35,10 @@ BIN_NAMES=$(patsubst %.test.c,%,$(SRC_FILES))
 BIN_PATTERN=$(BIN)/%$(DOTEXE)
 BIN_PATHS=$(patsubst %,$(BIN_PATTERN),$(BIN_NAMES))
 
-all: banner create_build_dirs $(BIN_PATHS)
+.PHONY: all create_build_dirs test clean
+.IGNORE: create_build_dirs
 
-banner:
-	@echo src files: $(SRC_FILES)
-	@echo bin_names: $(BIN_NAMES)
-	@echo bin_paths: $(BIN_PATHS)
-	@echo obj_names: $(OBJ_NAMES)
-	@echo obj_paths: $(OBJ_PATHS)
-	@echo
+all: create_build_dirs $(BIN_PATHS)
 
 create_build_dirs:
 	$(MKDIR) $(OBJ) $(BIN)
