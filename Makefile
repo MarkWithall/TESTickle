@@ -24,7 +24,7 @@ else
 endif
 
 # Dynamically create a list of objects and binaries that must be compiled,
-# baesd on the files ending with `.test.c` in this directory
+# baesd on the files ending with `.test.c` in this directory.
 SRC_FILES=$(wildcard *.test.c)
 
 OBJ_NAMES=$(patsubst %.test.c,%.o,$(SRC_FILES))
