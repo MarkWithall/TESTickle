@@ -3,3 +3,5 @@ bin/
 obj/
 *_runner.c
 *.swp
+*.exe
+*.o
