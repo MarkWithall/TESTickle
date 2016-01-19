@@ -1,62 +1,26 @@
-CC=gcc
-CFLAGS=-fms-extensions -std=c99 -Wall -Wextra -Werror -g
-BIN=bin
-OBJ=obj
-PERL=perl
+include TESTickle.mk
 
-# Note that the OBJECTS and BINARIES defined here are not dependent on the
-# *.test.c files in the main directory, hence all objects and binaries will
-# be cleaned.
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
-	MKDIR := cmd /C md
-	OBJECTS := $(OBJ)\\*.o
-	BINARIES := $(BIN)\\*.exe
-	REMOVEDSYM :=
+	REMOVE_DSYM :=
 	DOTEXE := .exe
 else
 	RM := rm -f
-	MKDIR := mkdir -p
-	OBJECTS := $(OBJ)/*.o
-	BINARIES := $(BIN)/*
-	REMOVEDSYM := $(RM) -rf $(BIN)/*.dSYM
+	REMOVE_DSYM := $(RM) -rf *.dSYM
 	DOTEXE :=
 endif
 
-# Dynamically create a list of objects and binaries that must be compiled,
-# baesd on the files ending with `.test.c` in this directory.
-SRC_FILES=$(wildcard *.test.c)
+BUILT_ITEMS=testickle_runner.c testickle.o testickle.exe
 
-OBJ_NAMES=$(patsubst %.test.c,%.o,$(SRC_FILES))
-OBJ_PATTERN=$(OBJ)/%
-OBJ_PATHS=$(patsubst %,$(OBJ_PATTERN),$(OBJ_NAMES))
+.PHONY: test clean
 
-BIN_NAMES=$(patsubst %.test.c,%,$(SRC_FILES))
-BIN_PATTERN=$(BIN)/%$(DOTEXE)
-BIN_PATHS=$(patsubst %,$(BIN_PATTERN),$(BIN_NAMES))
-
-.PHONY: all create_build_dirs test clean
-.IGNORE: create_build_dirs
-
-all: create_build_dirs $(BIN_PATHS)
-
-create_build_dirs:
-	$(MKDIR) $(OBJ) $(BIN)
-
-$(OBJ)/%.o: %.test.c TESTickle.h
-	$(CC) $(CFLAGS) -o $@ -c $<
-
-%_runner.c: %.test.c
-	$(PERL) test_generator.pl $< > $@
-
-$(BIN)/%$(DOTEXE): %_runner.c $(OBJ)/%.o
+testickle$(DOTEXE): testickle_runner.c testickle.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-test:
-	prove -f -e "" bin/*$(DOTEXE)
+test: testickle$(DOTEXE)
+	prove -f -e "" $^
 
 clean:
-	$(RM) *_runner.c
-	$(RM) $(OBJECTS)
-	$(REMOVEDSYM)
-	$(RM) $(BINARIES)
+	$(RM) $(BUILT_ITEMS)
+	$(REMOVED_SYM)
+
