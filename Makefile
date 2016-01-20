@@ -2,11 +2,9 @@ include TESTickle.mk
 
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
-	REMOVE_DSYM :=
 	DOTEXE := .exe
 else
 	RM := rm -f
-	REMOVE_DSYM := $(RM) -rf *.dSYM
 	DOTEXE :=
 endif
 
@@ -20,5 +18,4 @@ test: sample.test$(DOTEXE)
 
 clean:
 	$(RM) $(TESTICKLE_BUILT_ITEMS) 
-	$(REMOVED_SYM)
 
