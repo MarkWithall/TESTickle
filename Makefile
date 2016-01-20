@@ -1,5 +1,7 @@
 include TESTickle/TESTickle.mk
 
+CFLAGS += -I TESTickle
+
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
 	DOTEXE := .exe
@@ -11,7 +13,7 @@ endif
 .PHONY: test clean
 
 sample.test$(DOTEXE): $(call test_files_for,sample.test.c)
-	$(CC) $(CFLAGS) -ITESTickle -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 test: sample.test$(DOTEXE)
 	prove -f -e "" $^

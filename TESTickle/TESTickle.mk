@@ -4,8 +4,8 @@ PERL=perl
 
 TESTICKLE_BUILT_ITEMS=*.test.runner.c *.test.o *.test *.test.exe
 
-%.test.o: %.test.c TESTickle/TESTickle.h
-	$(CC) $(CFLAGS) -ITESTickle -o $@ -c $<
+%.test.o: %.test.c
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 %.test.runner.c: %.test.c
 	$(PERL) TESTickle/test_generator.pl $< > $@
