@@ -10,8 +10,6 @@ else
 	DOTEXE :=
 endif
 
-BUILT_ITEMS=sample_runner.c sample.test.o sample.test.exe
-
 .PHONY: test clean
 
 sample.test$(DOTEXE): sample_runner.c sample.test.o
@@ -21,6 +19,6 @@ test: sample.test$(DOTEXE)
 	prove -f -e "" $^
 
 clean:
-	$(RM) $(BUILT_ITEMS)
+	$(RM) *_runner.c *.test.o *.test$(DOTEXE)
 	$(REMOVED_SYM)
 
