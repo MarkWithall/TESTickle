@@ -12,13 +12,13 @@ endif
 
 .PHONY: test clean
 
-sample.test$(DOTEXE): sample_runner.c sample.test.o
+sample.test$(DOTEXE): sample.test.runner.c sample.test.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 test: sample.test$(DOTEXE)
 	prove -f -e "" $^
 
 clean:
-	$(RM) *_runner.c *.test.o *.test$(DOTEXE)
+	$(RM) *.test.runner.c *.test.o *.test$(DOTEXE)
 	$(REMOVED_SYM)
 

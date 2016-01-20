@@ -5,6 +5,6 @@ PERL=perl
 %.test.o: %.test.c TESTickle.h
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-%_runner.c: %.test.c
+%.test.runner.c: %.test.c
 	$(PERL) test_generator.pl $< > $@
 
