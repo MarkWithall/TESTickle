@@ -10,12 +10,12 @@ endif
 
 .PHONY: test clean
 
-sample.test$(DOTEXE): $(call test_files_for,sample.test.c) 
+sample.test$(DOTEXE): $(call test_files_for,sample.test.c)
 	$(CC) $(CFLAGS) -o $@ $^
 
 test: sample.test$(DOTEXE)
 	prove -f -e "" $^
 
 clean:
-	$(RM) $(TESTICKLE_BUILT_ITEMS) 
+	$(RM) $(TESTICKLE_BUILT_ITEMS)
 
