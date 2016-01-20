@@ -10,14 +10,14 @@ else
 	DOTEXE :=
 endif
 
-BUILT_ITEMS=testickle_runner.c testickle.o testickle.exe
+BUILT_ITEMS=sample_runner.c sample.o sample.test.exe
 
 .PHONY: test clean
 
-testickle$(DOTEXE): testickle_runner.c testickle.o
+sample.test$(DOTEXE): sample_runner.c sample.o
 	$(CC) $(CFLAGS) -o $@ $^
 
-test: testickle$(DOTEXE)
+test: sample.test$(DOTEXE)
 	prove -f -e "" $^
 
 clean:
