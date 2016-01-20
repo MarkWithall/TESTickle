@@ -15,7 +15,7 @@ endif
 sample.test$(DOTEXE): $(call test_files_for,sample.test.c)
 	$(CC) $(CFLAGS) -o $@ $^
 
-test: sample.test$(DOTEXE)
+test: ./sample.test$(DOTEXE)
 	prove -f -e "" $^
 
 clean:
