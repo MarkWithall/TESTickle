@@ -10,11 +10,11 @@ else
 	DOTEXE :=
 endif
 
-BUILT_ITEMS=sample_runner.c sample.o sample.test.exe
+BUILT_ITEMS=sample_runner.c sample.test.o sample.test.exe
 
 .PHONY: test clean
 
-sample.test$(DOTEXE): sample_runner.c sample.o
+sample.test$(DOTEXE): sample_runner.c sample.test.o
 	$(CC) $(CFLAGS) -o $@ $^
 
 test: sample.test$(DOTEXE)
