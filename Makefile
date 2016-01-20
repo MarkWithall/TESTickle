@@ -15,8 +15,8 @@ endif
 sample.test$(DOTEXE): $(call test_files_for,sample.test.c)
 	$(CC) $(CFLAGS) -o $@ $^
 
-test: ./sample.test$(DOTEXE)
-	prove -f -e "" $^
+test: 
+	prove -f -e "" ./sample.test$(DOTEXE)
 
 clean:
 	$(RM) $(TESTICKLE_BUILT_ITEMS)
