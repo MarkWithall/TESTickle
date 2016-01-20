@@ -10,7 +10,7 @@ endif
 
 .PHONY: test clean
 
-sample.test$(DOTEXE): sample.test.runner.c sample.test.o
+sample.test$(DOTEXE): $(call test_files_for,sample.test.c) 
 	$(CC) $(CFLAGS) -o $@ $^
 
 test: sample.test$(DOTEXE)
