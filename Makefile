@@ -19,6 +19,6 @@ test: sample.test$(DOTEXE)
 	prove -f -e "" $^
 
 clean:
-	$(RM) *.test.runner.c *.test.o *.test$(DOTEXE)
+	$(RM) $(TESTICKLE_BUILT_ITEMS) 
 	$(REMOVED_SYM)
 
