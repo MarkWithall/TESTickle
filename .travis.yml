@@ -4,4 +4,4 @@ before_install:
     - export PERL_MM_USE_DEFAULT=1
     - export PERL5LIB=/home/travis/perl5/lib/perl5
 install: cpan -f -i Template
-script: make && make test
+script: cd Sample && make && make test
