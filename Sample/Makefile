@@ -1,6 +1,7 @@
-include TESTickle/TESTickle.mk
+include ../TESTickle.mk
 
-CFLAGS += -I TESTickle
+CFLAGS += -I ..
+SCRIPTPATH=..
 
 ifeq ($(OS),Windows_NT)
 	RM := cmd /C del
