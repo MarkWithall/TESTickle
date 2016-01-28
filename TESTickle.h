@@ -13,7 +13,7 @@
 
 #define RUN_TEST(test_name, test_number) \
     do { \
-        struct test_result TESTickle_result; \
+        struct TESTickle_test_result TESTickle_result; \
         setup(); \
         TESTickle_result = test_name(); \
         if (TESTickle_result.test_passed) { \
@@ -35,9 +35,9 @@
     } while(0);
 
 #define TEST(test_name) \
-    struct test_result test_name() \
+    struct TESTickle_test_result test_name() \
     { \
-        struct test_result TESTickle_result = {.test_passed = false, .data_specified = false};
+        struct TESTickle_test_result TESTickle_result = {.test_passed = false, .data_specified = false};
 
 #define END_TEST \
         TESTickle_result.test_passed = true; \
@@ -108,7 +108,7 @@
 
 #define MESSAGE_LENGTH 128
 
-struct test_result {
+struct TESTickle_test_result {
     bool test_passed;
     char failure_message[MESSAGE_LENGTH];
     bool data_specified;

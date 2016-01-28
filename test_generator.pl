@@ -27,7 +27,7 @@ __END__
 
 #include "TESTickle.h"
 
-[% FOREACH test IN tests %]struct test_result [% test.name %]();
+[% FOREACH test IN tests %]struct TESTickle_test_result [% test.name %]();
 [% END %]
 int main(void)
 {
