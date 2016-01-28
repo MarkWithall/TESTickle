@@ -13,21 +13,21 @@
 
 #define RUN_TEST(test_name, test_number) \
     do { \
-        struct test_result result; \
+        struct test_result TESTickle_result; \
         setup(); \
-        result = test_name(); \
-        if (result.test_passed) { \
+        TESTickle_result = test_name(); \
+        if (TESTickle_result.test_passed) { \
             printf("ok %d - %s\n", test_number, #test_name); \
         } \
         else { \
             printf("not ok %d - %s\n", test_number, #test_name); \
             printf("  ---\n"); \
-            printf("  message: %s\n", result.failure_message); \
+            printf("  message: %s\n", TESTickle_result.failure_message); \
             printf("  severity: fail\n"); \
-            if (result.data_specified) { \
+            if (TESTickle_result.data_specified) { \
                 printf("  data:\n"); \
-                printf("    got: '%s'\n", result.got); \
-                printf("    expect: '%s'\n", result.expect); \
+                printf("    got: '%s'\n", TESTickle_result.got); \
+                printf("    expect: '%s'\n", TESTickle_result.expect); \
             } \
             printf("  ...\n"); \
         } \
@@ -37,73 +37,73 @@
 #define TEST(test_name) \
     struct test_result test_name() \
     { \
-        struct test_result result = {.test_passed = false, .data_specified = false};
+        struct test_result TESTickle_result = {.test_passed = false, .data_specified = false};
 
 #define END_TEST \
-        result.test_passed = true; \
-        return result; \
+        TESTickle_result.test_passed = true; \
+        return TESTickle_result; \
     }
 
 #define ASSERT_TRUE(test, message) \
     if (!(test)) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_FALSE(test, message) \
     if (test) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_EQUAL(actual, expected, type, message) \
     if (actual != expected) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        result.data_specified = true; \
-        snprintf(result.got, MESSAGE_LENGTH, type, actual); \
-        snprintf(result.expect, MESSAGE_LENGTH, type, expected); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        TESTickle_result.data_specified = true; \
+        snprintf(TESTickle_result.got, MESSAGE_LENGTH, type, actual); \
+        snprintf(TESTickle_result.expect, MESSAGE_LENGTH, type, expected); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_NOT_EQUAL(actual, expected, message) \
     if (actual == expected) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_STRING_EQUAL(actual, expected, message) \
     if (strncmp(actual, expected, MESSAGE_LENGTH) != 0) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        result.data_specified = true; \
-        snprintf(result.got, MESSAGE_LENGTH, "%s", actual); \
-        snprintf(result.expect, MESSAGE_LENGTH, "%s", expected); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        TESTickle_result.data_specified = true; \
+        snprintf(TESTickle_result.got, MESSAGE_LENGTH, "%s", actual); \
+        snprintf(TESTickle_result.expect, MESSAGE_LENGTH, "%s", expected); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_STRING_EMPTY(actual, message) \
     if (strncmp(actual, "", MESSAGE_LENGTH) != 0) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        result.data_specified = true; \
-        snprintf(result.got, MESSAGE_LENGTH, "%s", actual); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        TESTickle_result.data_specified = true; \
+        snprintf(TESTickle_result.got, MESSAGE_LENGTH, "%s", actual); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_STRING_NOT_EMPTY(actual, message) \
     if (strncmp(actual, "", MESSAGE_LENGTH) == 0) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_NULL(expr, message) \
     if ((expr) != NULL) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        return TESTickle_result; \
     }
 
 #define ASSERT_NOT_NULL(expr, message) \
     if ((expr) == NULL) { \
-        snprintf(result.failure_message, MESSAGE_LENGTH, "%s", message); \
-        return result; \
+        snprintf(TESTickle_result.failure_message, MESSAGE_LENGTH, "%s", message); \
+        return TESTickle_result; \
     }
 
 #define MESSAGE_LENGTH 128
