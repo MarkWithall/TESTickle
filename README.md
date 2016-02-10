@@ -22,3 +22,27 @@ The recommended route is via [Perlbrew](http://perlbrew.pl).
 -   `perlbrew switch perl-5.22.0`
 -   `cpanm install Template`
 
+Getting Started
+---------------
+
+To start a new project using TESTickle, perform the following commands.
+
+Create a git repository.
+
+```
+git init
+```
+
+Or clone a repository created in GitHub (or similar).
+
+Add TESTickle as a submodule.
+
+```
+git submodule add https://github.com/MarkWithall/TESTickle.git
+```
+
+Commit the addition of TESTickle.
+
+```
+git commit -a -m "Add TESTickle submodule."
+```
