@@ -25,6 +25,8 @@ The recommended route is via [Perlbrew](http://perlbrew.pl).
 Getting Started
 ---------------
 
+### Initialising The Project
+
 To start a new project using TESTickle, perform the following commands.
 
 Create a git repository.
@@ -45,4 +47,26 @@ Commit the addition of TESTickle.
 
 ```
 git commit -a -m "Add TESTickle submodule."
+```
+
+### Creating A Makefile
+
+By default the submodule will be in the `TESTickle` folder.  The file `TESTickle.mk` contains make commands for building tests.  Import that file into the project `Makefile` using:
+
+```
+include TESTickle/TESTickle.mk
+```
+
+The extension `.test.c` is used for test fixtures.  To build a test fixture, e.g., `foo.test.c` add the following line to the `Makefile`:
+
+```
+foo.test: $(call test_files_for,foo.test.c)
+	$(CC) $(CFLAGS) -o $@ $^
+```
+
+And to run the tests, include the following rule:
+
+```
+test:
+  prove -f -e "" foo.test
 ```
