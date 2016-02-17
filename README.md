@@ -70,3 +70,36 @@ And to run the tests, include the following rule:
 test:
   prove -f -e "" foo.test
 ```
+
+### Writing Tests
+
+To create a test fixture, create a file with the extension `.test.c` and include TESTickle:
+
+```c
+include "TESTickle/TESTickle.h"
+```
+
+Adjust the include path or add a `-I` switch to the `CFLAGS` variable in the `Makefile` as necessary.
+
+It is necessary to implement the `setup` and `teardown` functions, even if they are empty.
+
+```c
+void setup() { }
+void teardown() { }
+```
+
+To write a test, use the header and footer macros as follows:
+
+```c
+TEST(my_first_test)
+END_TEST
+```
+
+Assertions are then used to assert things in the test:
+
+```c
+TEST(one_plus_one_equals_two)
+    int result = 1 + 1;
+    ASSERT_EQUAL(result, 2, "%d", "1 + 1 = 2");
+END_TEST
+```
