@@ -3,7 +3,7 @@ TESTickle
 
 [![Build Status](https://travis-ci.org/MarkWithall/TESTickle.svg?branch=master)](https://travis-ci.org/MarkWithall/TESTickle)
 
-A unit testing library for C.
+A unit testing library for C.  Output is in the [Test Anything Protocol](https://testanything.org/) format.
 
 Installation
 ------------
