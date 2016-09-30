@@ -125,7 +125,7 @@ ASSERT_TRUE(2 > 1, "2 should be greater than 1");
 #### ASSERT_FALSE
 
 ```c
-ASSERT_FALSE(test, message);
+ASSERT_FALSE(test, message)
 ```
 
 Similarly to `ASSERT_TRUE`, this takes an expression that returns a boolean-equivalent type and a failure message string.
