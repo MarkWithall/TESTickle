@@ -103,3 +103,35 @@ TEST(one_plus_one_equals_two)
     ASSERT_EQUAL(result, 2, "%d", "1 + 1 = 2");
 END_TEST
 ```
+
+### Assertions
+
+There are several built-in assertions in TESTickle.
+
+#### ASSERT_TRUE
+
+```c
+ASSERT_TRUE(test, message)
+```
+
+This takes an expression that returns a boolean-equivalent type and a failure message string.
+
+For example:
+
+```c
+ASSERT_TRUE(2 > 1, "2 should be greater than 1");
+```
+
+#### ASSERT_FALSE
+
+```c
+ASSERT_FALSE(test, message);
+```
+
+Similarly to `ASSERT_TRUE`, this takes an expression that returns a boolean-equivalent type and a failure message string.
+
+For example:
+
+```c
+ASSERT_FALSE(2 == 1, "2 should not be equal to 1");
+```
