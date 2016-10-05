@@ -135,3 +135,101 @@ For example:
 ```c
 ASSERT_FALSE(2 == 1, "2 should not be equal to 1");
 ```
+
+#### ASSERT_EQUAL
+
+```c
+ASSERT_EQUAL(actual, expected, type, message)
+```
+
+Assert that two values are equal by `==`.
+
+For example:
+
+```c
+ASSERT_EQUAL(1, 1, "1 should be equal to 1");
+```
+
+#### ASSERT_NOT_EQUAL
+
+```c
+ASSERT_NOT_EQUAL(actual, expected, message)
+```
+
+Assert that two values are not equal by `!=`.
+
+For example:
+
+```c
+ASSERT_NOT_EQUAL(2, 1, "2 should not be equal to 1");
+```
+
+#### ASSERT_STRING_EQUAL
+
+```c
+ASSERT_STRING_EQUAL(actual, expected, message)
+```
+
+Assert that two null-terminated character arrays are equal by `strncmp`; with a maximum length of `MESSAGE_LENGTH` (default 128).
+
+For example:
+
+```c
+ASSERT_STRING_EQUAL("Hello", "Hello", "'Hello' should be equal to 'Hello'");
+```
+
+#### ASSERT_STRING_EMPTY
+
+```c
+ASSERT_STRING_EMPTY(actual, message)
+```
+
+Assert that a null-terminated character array is empty.
+
+For example:
+
+```c
+ASSERT_STRING_EMPTY("", "String should be empty");
+```
+
+#### ASSERT_STRING_NOT_EMPTY
+
+```c
+ASSERT_STRING_NOT_EMPTY(actual, message)
+```
+
+Assert that a null-terminated character array is not empty.
+
+For example:
+
+```c
+ASSERT_STRING_NOT_EMPTY("foo", "String should not be empty");
+```
+
+#### ASSERT_NULL
+
+```c
+ASSERT_NULL(expr, message)
+```
+
+Assert that a pointer is null.
+
+For example:
+
+```c
+ASSERT_NULL(ptr, "Pointer should be null");
+```
+
+#### ASSERT_NOT_NULL
+
+```c
+ASSERT_NOT_NULL(expr, message)
+```
+
+Assert that a point is not null.
+
+For example:
+
+```c
+ASSERT_NOT_NULL(ptr, "Pointer should no be null");
+```
